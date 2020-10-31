@@ -9,7 +9,8 @@ a = {
     "5": "Add Category",
     "6": "Retrieve categories",
     "7": "Add product",
-    "8": "get product"
+    "8": "get product",
+    "9": "Create csv"
 }
 
 print("---------- Welcome ----------")

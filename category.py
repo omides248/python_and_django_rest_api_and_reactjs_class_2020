@@ -2,7 +2,7 @@ import itertools
 
 
 class Category:
-    __db = []
+    __db = [{"id": "1", "name": "shoes"}, {"id": "2", "name": "cloth"}]
     __id = itertools.count(1)
 
     def save(self, name):
@@ -37,6 +37,21 @@ class Category:
     def get_all_category(cls):
         return cls.__db
 
+    @classmethod
+    def create_csv(cls):
+        import datetime
+        import random
+        import csv
+        file = f"{datetime.datetime.now().timestamp()}-{random.randint(1000, 9999)}.csv"
+        with open(file, "w", encoding="utf-8-sig", newline="") as f:
+            fieldnames = ["name"]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for ctg in cls.__db:
+                name = ctg.get("name")
+                c = {"name": name}
+                writer.writerow(c)
+
 
 # a = Category()
 # a.save("shoes")
@@ -45,3 +60,5 @@ class Category:
 # a.delete(1)
 
 # print(a.get_all_category())
+
+Category.create_csv()
