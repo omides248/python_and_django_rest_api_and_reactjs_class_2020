@@ -1,10 +1,13 @@
 import itertools
 
+from tutorial.decorators import my_decorator2
+
 
 class Category:
     __db = [{"id": "1", "name": "shoes"}, {"id": "2", "name": "cloth"}]
     __id = itertools.count(1)
 
+    @my_decorator2
     def save(self, name):
         # self.__db.append({"id": next(self.__id), "name": name})
 
@@ -61,4 +64,6 @@ class Category:
 
 # print(a.get_all_category())
 
-Category.create_csv()
+# Category.create_csv()
+Category.save("shoes")
+Category.save("shoes")
