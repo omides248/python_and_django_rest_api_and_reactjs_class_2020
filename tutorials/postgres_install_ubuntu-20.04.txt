@@ -1,0 +1,20 @@
+digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-20-04
+
+
+sudo apt update
+
+sudo apt install postgresql postgresql-contrib
+
+sudo -i -u postgres
+
+psql
+
+
+sudo -u postgres psql
+
+\q
+
+
+
+Ver Cluster Port Status Owner    Data directory              Log file
+12  main    5432 down   postgres /var/lib/postgresql/12/main /var/log/postgresql/postgresql-12-main.log
