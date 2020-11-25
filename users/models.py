@@ -38,6 +38,8 @@ class User(AbstractUser):
 
     username        = None
     phone_number    = PhoneNumberField(unique=True, verbose_name=_("Phone number"))
+    # first_name = models.CharField(_('first name'), max_length=150)
+    # last_name = models.CharField(_('last name'), max_length=150)
 
     USERNAME_FIELD = "phone_number"
     REQUIRED_FIELDS = []
