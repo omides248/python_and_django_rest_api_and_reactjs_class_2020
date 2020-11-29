@@ -22,6 +22,23 @@ def my_decorator1(function):
     return wrapper
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # @my_decorator1
 # def hello():
 #     print("hello")
