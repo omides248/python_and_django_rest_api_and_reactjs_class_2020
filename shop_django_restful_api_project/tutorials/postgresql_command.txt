@@ -1,0 +1,50 @@
+sudo passwd postgres
+chmod -R 755 ./
+chown omid:omid ./ -R
+sudo -i
+sudo -u postgres psql
+
+
+sudo -i -u postgres
+
+# ------------------------------------------------------------------
+PSQL:
+
+\du : database user
+\l  : database list
+
+# ------------------------------------------------------------------
+
+
+CREATE DATABASE database_name;
+CREATE USER username WITH PASSWORD 'password';
+ALTER ROLE username SET client_encoding TO 'utf8';
+ALTER ROLE username SET default_transaction_isolation TO 'read committed';
+ALTER ROLE username SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE database_name TO username;
+
+
+
+python manage.py dumpdata --exclude=auth --exclude=contenttypes --format json --indent 4 > backups/backup_5.json
+
+--------------------------------------------
+sudo passwd postgres
+
+sudo su – postgres
+pg_dump name_of_database > name_of_backup_file
+
+sudo su - postgres
+pg_dump postgres > postgres_db.bak
+
+pg_dump -h remote_host -p remote_port name_of_database > name_of_backup_file
+
+
+psql empty_database < backup_file
+
+windows (Restore):
+/c/Program Files/PostgreSQL/10/bin
+./psql.exe nagsheman_db < /c/Users/omid.esmaeili/Desktop/nagsheman_db_new.bak postgres
+
+https://www.digitalocean.com/community/tutorials/how-to-backup-postgresql-databases-on-an-ubuntu-vps
+
+https://simpleisbetterthancomplex.com/tutorial/2016/07/26/how-to-reset-migrations.html

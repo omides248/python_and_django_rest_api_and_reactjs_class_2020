@@ -1,0 +1,128 @@
+# Create record (Create)
+// ------------------------------------------------------------------------
+Product.objects.create(name="product 1", price=160000, off=10)
+// ------------------------------------------------------------------------
+Product(name="product 2", price=200000).save()
+// ------------------------------------------------------------------------
+
+
+# Update record (Update)
+// ------------------------------------------------------------------------
+p1 = Product.objects.get(id=21)
+p1.price = 180000
+p1.save()
+// ------------------------------------------------------------------------
+Product.objects.filter(id=21).update(price=170000)
+// ------------------------------------------------------------------------
+
+
+# Delete record (Delete)
+// ------------------------------------------------------------------------
+Product.objects.get(id=21).delete()
+// ------------------------------------------------------------------------
+Product.objects.filter(id=22).delete()
+// ------------------------------------------------------------------------
+Product.objects.filter(name__contains="product").delete()
+// ------------------------------------------------------------------------
+
+
+# Read record (Read)
+// ------------------------------------------------------------------------
+Product.objects.filter(name__contains="product")
+// ------------------------------------------------------------------------
+Product.objects.all()
+// ------------------------------------------------------------------------
+Product.objects.filter(name__icontains="product")
+// ------------------------------------------------------------------------
+Product.objects.filter(name="product") # Exact
+// ------------------------------------------------------------------------
+Product.objects.filter(name__exact="product")
+// ------------------------------------------------------------------------
+Product.objects.filter(name__iexact="product")
+// ------------------------------------------------------------------------
+Product.objects.filter(name__icontains="product")
+// ------------------------------------------------------------------------
+Product.objects.filter(name__icontains="product").order_by("price") 
+// ------------------------------------------------------------------------
+Product.objects.filter(name__icontains="product").order_by("-price")
+// ------------------------------------------------------------------------
+Product.objects.filter(name__startswith="product")
+// ------------------------------------------------------------------------
+Product.objects.filter(name__endswith="product")
+// ------------------------------------------------------------------------
+Product.objects.filter(price__lte=160000)
+// ------------------------------------------------------------------------
+Product.objects.filter(price__gte=160000)
+// ------------------------------------------------------------------------
+Product.objects.filter(price__gte=160000).count()
+// ------------------------------------------------------------------------
+Product.objects.all().distinct("price").count()
+// ------------------------------------------------------------------------
+Product.objects.all()[1:5]
+// ------------------------------------------------------------------------
+Product.objects.filter(name__contains="product").exclude(price=160000)
+// ------------------------------------------------------------------------
+
+
+
+// Create ForeignKey (One To Many) or Add ForeignKey (One To Many)
+// ------------------------------------------------------------------------
+c1 = Category.objects.create(name="book")
+p1 = Product.objects.get(id=25)
+p1.category_id = c1
+p1.save()
+// ------------------------------------------------------------------------
+Product.objects.filter(id__in=[26, 27, 28, 29]).update(category_id=c2)
+// ------------------------------------------------------------------------
+
+
+// Create ForeignKey (One To Many) or Add ForeignKey (One To Many)
+// ------------------------------------------------------------------------
+c1 = Category.objects.create(name="book")
+p1 = Product.objects.get(id=25)
+p1.category_id = c1
+p1.save()
+// ------------------------------------------------------------------------
+Product.objects.filter(id__in=[26, 27, 28, 29]).update(category_id=c2)
+// ------------------------------------------------------------------------
+
+
+// Read ForeignKey
+// ------------------------------------------------------------------------
+Product.objects.filter(category__name="Shoes").order_by("id")
+
+
+// Read Reverse ForeignKey
+// ------------------------------------------------------------------------
+Category.objects.filter(product__off__gt=4)
+
+
+// Create Many To Many
+// ------------------------------------------------------------------------
+ p1 = Product.objects.get(id=31)
+ s2 = Store.objects.create(name="store 2")
+ s3 = Store.objects.create(name="store 3")
+ p1.stores.add(s2, s3)
+ 
+
+// Create Reverse Many To Many
+// ------------------------------------------------------------------------
+p1 = Product.objects.get(id=31)
+p2 = Product.objects.get(id=33)
+p3 = Product.objects.get(id=27)
+
+s1 = Store.objects.create(name="store 1")
+s1.product_set.add(p1, p2, p3)
+// ------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+

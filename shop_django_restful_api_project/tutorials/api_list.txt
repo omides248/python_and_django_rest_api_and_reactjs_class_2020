@@ -1,0 +1,13 @@
+
+GET  /api/v1/products/ 
+GET  /api/v1/users/{pk}/
+POST /api/v1/users/sign-up/
+POST /api/v1/users/sign-in/
+POST /api/v1/users/buy/
+GET  /api/v1/users/{pk}/order/
+GEt  /api/v1/users/{pk}/profile/
+PUT  /api/v1/users/{pk}/profile/
+
+
+
+
