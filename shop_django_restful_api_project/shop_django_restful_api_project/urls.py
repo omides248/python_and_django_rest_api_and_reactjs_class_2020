@@ -1,4 +1,4 @@
-"""shop_backend URL Configuration
+"""shop_django_restful_api_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.urls import path, re_path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from shop_backend import settings
+from shop_django_restful_api_project import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
