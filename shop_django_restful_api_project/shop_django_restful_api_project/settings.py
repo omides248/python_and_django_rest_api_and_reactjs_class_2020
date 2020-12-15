@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import locale
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -37,11 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+    'django_filters',
+    'ckeditor',
+    'drf_yasg',
+
     'products.apps.ProductsConfig',
     'orders.apps.OrdersConfig',
     'users.apps.UsersConfig',
-
-    'rest_framework',
 
 ]
 
@@ -91,7 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'my_shop',
         'USER': 'omid1234',
-        'PASSWORD': 'my_pass_123',
+        'PASSWORD': '1111',
         'HOST': 'localhost',
         'PORT': '5432'
     }
@@ -118,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'UTC'
 
@@ -181,4 +185,17 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "locale")
+]
+
+locale.setlocale(locale.LC_ALL, "fa_IR")
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+    },
 }

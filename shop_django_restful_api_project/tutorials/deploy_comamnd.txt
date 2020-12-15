@@ -1,0 +1,14 @@
+https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04
+
+useradd omides248
+passwd omides248
+mkhomedir_helper omides248
+
+
+systemctl daemon-reload
+systemctl restart gunicorn
+
+systemctl start gunicorn.socket
+systemctl enable gunicorn.socket
+
+systemctl status gunicorn.socket

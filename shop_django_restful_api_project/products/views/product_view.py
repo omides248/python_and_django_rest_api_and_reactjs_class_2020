@@ -7,17 +7,12 @@ from products.serializers.product_serializer import ProductSerializer
 
 
 class LargeResultsSetPagination(PageNumberPagination):
-    page_size = 2
+    page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 10000
 
 
-class ProductView(mixins.RetrieveModelMixin,
-                  mixins.ListModelMixin,
-                  mixins.CreateModelMixin,
-                  mixins.UpdateModelMixin,
-                  mixins.DestroyModelMixin,
-                  viewsets.GenericViewSet):
+class ProductView(viewsets.ModelViewSet):
 
     permission_classes = (IsAuthenticated,)
     serializer_class = ProductSerializer

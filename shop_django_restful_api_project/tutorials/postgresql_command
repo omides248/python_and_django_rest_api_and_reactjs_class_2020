@@ -1,0 +1,9 @@
+CREATE DATABASE my_shop;
+
+CREATE USER omid1234 WITH PASSWORD '1111';
+
+ALTER ROLE omid1234 SET client_encoding TO 'utf8';
+ALTER ROLE omid1234 SET default_transaction_isolation TO 'read committed';
+ALTER ROLE omid1234 SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE my_shop TO omid1234;
