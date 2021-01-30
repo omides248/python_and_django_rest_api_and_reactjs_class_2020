@@ -37,7 +37,7 @@ class CategoryView2(viewsets.ViewSet):
         except Category.DoesNotExist:
             raise Http404
 
-    def list(self, request, *args, **kwargs):
+    def list(self, request, pk=None, *args, **kwargs):
         serializer = CategorySerializer(instance=Category.objects.all(), many=True, context={"request": request})
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -69,9 +69,6 @@ class CategoryView2(viewsets.ViewSet):
 
 class CategoryView3(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.DestroyModelMixin,
-                    mixins.RetrieveModelMixin,
                     generics.GenericAPIView):
     permission_classes = (AllowAny,)
     queryset = Category.objects.all()
@@ -83,7 +80,7 @@ class CategoryView3(mixins.ListModelMixin,
     filterset_fields = ['name', 'active']
     search_fields = ['name', 'active']
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
         page = self.paginate_queryset(queryset)
@@ -101,21 +98,30 @@ class CategoryView3(mixins.ListModelMixin,
             return Response(serializer.data, 201)
         return Response(serializer.errors, 400)
 
-    def put(self, request, pk, *args, **kwargs):
-        return self.update(request, pk, *args, **kwargs)
-
-    def patch(self, request, pk, *args, **kwargs):
-        return self.partial_update(request, pk, *args, **kwargs)
-
     def delete(self, request, pk, *args, **kwargs):
         return self.delete(request, pk, *args, **kwargs)
 
-    # def post(self, request):
-    #     serializer = CategorySerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, 201)
-    #     return Response(serializer.errors, 400)
+
+class CategoryView7(mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    mixins.RetrieveModelMixin,
+                    generics.GenericAPIView):
+
+    permission_classes = (AllowAny,)
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    # def get(self, request, pk, *args, **kwargs):
+    #     return self.retrieve(request, pk, *args, **kwargs)
+    #
+    # def put(self, request, pk, *args, **kwargs):
+    #     return self.update(request, pk, *args, **kwargs)
+    #
+    # def patch(self, request, pk, *args, **kwargs):
+    #     return self.partial_update(request, pk, *args, **kwargs)
+    #
+    def delete(self, request, pk, *args, **kwargs):
+        return self.destroy(request, pk, *args, **kwargs)
 
 
 class CategoryView4(mixins.ListModelMixin,
@@ -127,6 +133,7 @@ class CategoryView4(mixins.ListModelMixin,
     permission_classes = (AllowAny,)
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    product_serializer = ProductSerializer
 
     pagination_class = LargeResultsSetPagination
 
@@ -135,17 +142,17 @@ class CategoryView4(mixins.ListModelMixin,
     search_fields = ['name', 'active']
 
     @action(detail=True, methods=["GET"])
-    def products(self, request, pk=None):
+    def products(self, request, pk=None, *args, **kwargs):
         self.filterset_fields = ['name']
         self.search_fields = ['name']
         queryset = self.filter_queryset(Product.objects.filter(category=pk))
-
+        print(queryset)
         page = self.paginate_queryset(queryset)
         if page is not None:
-            serializer = ProductSerializer(page, many=True)
+            serializer = self.product_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = self.get_serializer(queryset, many=True)
+        serializer = self.product_serializer(queryset, many=True)
         return Response(serializer.data)
 
 

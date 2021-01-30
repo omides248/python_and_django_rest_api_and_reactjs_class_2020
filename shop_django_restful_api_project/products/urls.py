@@ -2,7 +2,7 @@ from django.urls import re_path
 from rest_framework.routers import DefaultRouter
 
 from products.views.category_detail import CategoryDetailView
-from products.views.category_view import CategoryView, CategoryView2, CategoryView3, CategoryView4
+from products.views.category_view import CategoryView, CategoryView2, CategoryView3, CategoryView4, CategoryView7
 from products.views.product_view import ProductView
 
 router = DefaultRouter()
@@ -17,9 +17,9 @@ urlpatterns = [
 
     # re_path(r"categories2/$", CategoryView2.as_view({"get": "list", "post": "create"})),  # This view is `viewsets (ViewSet)`
 
-    re_path(r"categories3/?$", CategoryView3.as_view()),  # This view is `generics (GenericAPIView)`
-    re_path(r"categories3/(?P<pk>\d+)/?$", CategoryView3.as_view()),  # This view is `generics (GenericAPIView)`
+    re_path(r"categories3/$", CategoryView3.as_view()),  # This view is `generics (GenericAPIView)`
+    re_path(r"categories3/(?P<pk>\d+)/$", CategoryView7.as_view()),  # This view is `generics (GenericAPIView)`
 
 ]
-
+print(router.urls)
 urlpatterns += router.urls
